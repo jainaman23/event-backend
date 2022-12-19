@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES6",
+    "baseUrl": ".",
+    "paths": {
+      "@root": ["."],
+      "@bin": ["bin"],
+      "@bin/*": ["bin/*"],
+      "@controllers": ["controllers"],
+      "@controllers/*": ["controllers/*"],
+      "@constant": ["constant"],
+      "@constant/*": ["constant/*"],
+      "@models": ["models"],
+      "@models/*": ["models/*"],
+      "@routes": ["routes"],
+      "@routes/*": ["routes/*"],
+      "@services": ["services"],
+      "@services/*": ["services/*"],
+      "@utils": ["utils"],
+      "@utils/*": ["utils/*"],
+      "@config": ["config"],
+      "@config/*": ["config/*"],
+      "@public": ["public"],
+      "@public/*": ["public/*"],
+      "@joiSchema": ["joiSchema"],
+      "@joiSchema/*": ["joiSchema/*"]
+    }
+  }
+}
