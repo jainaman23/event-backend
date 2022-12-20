@@ -119,7 +119,7 @@ const updateOrderStatus = async ({ orderId, status }) => {
 
 const updatePaymentInfoInRegistration = async (userInfo, status) => {
   const info = await Registration.findOneAndUpdate(
-    { _id: isValidObjectId(userInfo._id, "companyId") },
+    { _id: isValidObjectId(userInfo._id, "userId") },
     {
       $set: {
         paymentStatus: status,
@@ -144,11 +144,11 @@ const addMember = async ({ name, email, countryCode, mobileNumber, batch }) => {
 
 const SendMailToUser = async (userInfo) => {
   const { sendMail } = mailer.initialize({ channel: "mailServer" });
-  const QRCodeImage = await QRCode.toDataURL(`regisrationId:${userInfo}`);
+  const QRCodeImage = await QRCode.toDataURL(userInfo._id);
   const emailSentDetails = await sendMail({
     from: "info@lataservices.com",
     to: userInfo.email,
-    subject: "Entry Entry Pass | Alumini Meet",
+    subject: "Entry Pass | Alumini Meet",
     attachments: [
       {
         filename: "QRCode.png",
@@ -160,10 +160,9 @@ const SendMailToUser = async (userInfo) => {
         cid: "QRCode",
       },
     ],
-    html: `<b>thank you for registering with us. We look forward to seeing you in the evenet</b></br>
+    html: `<b>Thank you for registering with us. We look forward to seeing you in the event</b></br>
         Note: Please do not share this QR Code with anyone, This is valid only for single entry.</br>
         Thank you</br>
        <img src = 'cid:QRCode'></img>`,
   });
-  console.log("emailSentDetails", emailSentDetails);
 };

@@ -1,17 +1,16 @@
 const { hashCompare, generateToken, isValidObjectId } = require("@services");
-const { Employee } = require("@models");
+const { Coordinator } = require("@models");
 
 module.exports = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    const employee = await isEmployeeExist(email);
-    await verifyPassword(password, employee.password);
-    delete employee.password;
+    const coordinator = await isCoordinatorExist(email);
+    await verifyPassword(password, coordinator.password);
+    delete coordinator.password;
 
     const token = generateToken({
-      companyId: isValidObjectId(employee.company._id),
-      userId: isValidObjectId(employee._id),
+      coordinatorId: isValidObjectId(coordinator._id),
     });
 
     res.status(200).send(
@@ -19,7 +18,7 @@ module.exports = async (req, res, next) => {
         message: "Login successfully",
         data: {
           token: token,
-          employee: employee,
+          coordinator: coordinator,
         },
       })
     );
@@ -28,25 +27,24 @@ module.exports = async (req, res, next) => {
   }
 };
 
-async function isEmployeeExist(email) {
-  const employee = await Employee.findOne({ email, isActive: true })
-    .populate({
-      path: "company",
-      populate: {
-        path: "subscription",
-      },
-    })
-    .populate("role")
-    .lean();
-  if (!employee) {
+async function isCoordinatorExist(email) {
+  const coordinator = await Coordinator.findOne({
+    email,
+    isActive: true,
+  }).lean();
+  if (!coordinator) {
     throw { status: 400, message: "Email not exist" };
   }
-  return employee;
+  return coordinator;
 }
 
 async function verifyPassword(password, hash) {
-  const isPasswordValid = hashCompare(password, hash);
-  if (!isPasswordValid) {
+  console.log(password, hash);
+  // const isPasswordValid = hashCompare(password, hash);
+  // if (!isPasswordValid) {
+  //   throw { status: 400, message: "Invalid credentials" };
+  // }
+  if (String(password) !== String(hash)) {
     throw { status: 400, message: "Invalid credentials" };
   }
 }

@@ -9,7 +9,7 @@ const Registration = new Schema(
     mobileNumber: { type: String, required: true },
     isMember: { type: Boolean, required: true },
     batch: { type: Number, required: true },
-    isAttended: { type: Boolean, required: false },
+    isAttended: { type: Boolean, default: false },
     paymentStatus: {
       type: String,
       enum: ["PAID", "FAILED", "NOT_PAID"],

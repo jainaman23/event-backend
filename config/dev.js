@@ -14,7 +14,9 @@ const config = {
     KEY_SECRET: "nGgN0BN2wiwbGH4SFOpcQ9pz",
   },
   EMAIL_SERVER: {
+    name: "linode",
     host: "mail.lataservices.com",
+    secure: true,
     port: 465,
     username: "info@lataservices.com",
     password: "admin@$123#",

@@ -4,10 +4,13 @@ const createError = require("http-errors");
 const express = require("express");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const { expressjwt } = require("express-jwt");
+const { JWT } = require("@config");
 const path = require("path");
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const { JWT } = require("@config");
+const { extractToken } = require("@services");
+const openRoutes = require("@routes/openRoutes");
 const routes = require("@routes");
 
 const app = express();
@@ -27,6 +30,31 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json({ limit: "5mb" }));
 app.use(cookieParser());
 app.use("/public", express.static(path.join(__dirname, "public")));
+
+app.use(
+  expressjwt({
+    secret: JWT.secret,
+    algorithms: JWT.algorithms,
+    getToken: (req, res) => {
+      return extractToken(req, res);
+    },
+    credentialsRequired: true,
+  }).unless({
+    path: openRoutes,
+  }),
+  (req, res, next) => {
+    if (req.auth) {
+      const { coordinatorId } = req.auth;
+      if (!coordinatorId) {
+        throw { status: 401, message: "Invalid authorization token" };
+      }
+    }
+    next();
+  },
+  function (err, req, res, next) {
+    next(err);
+  }
+);
 
 app.use("/api/v1", routes);
 

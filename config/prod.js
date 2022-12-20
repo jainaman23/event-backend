@@ -10,8 +10,16 @@ const config = {
   },
   DEFAULT_RANDOM_ID_GENERATOR_LENGTH: 12,
   PAYMENT_GATEWAY: {
-    KEY_ID: "rzp_test_6sZirSf4hXFich",
-    KEY_SECRET: "XBvtjsLIyAQLLFtpXV4X9Q08",
+    KEY_ID: "rzp_test_AkwPqPwauYzwS8",
+    KEY_SECRET: "nGgN0BN2wiwbGH4SFOpcQ9pz",
+  },
+  EMAIL_SERVER: {
+    name: "linode",
+    host: "mail.lataservices.com",
+    secure: true,
+    port: 465,
+    username: "info@lataservices.com",
+    password: "admin@$123#",
   },
 };
 

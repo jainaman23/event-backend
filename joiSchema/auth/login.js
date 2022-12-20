@@ -3,6 +3,7 @@ const Joi = require("joi");
 module.exports = {
   validationType: "body",
   schema: Joi.object({
-    _id: Joi.string().required(),
-  }).with("countryCode", "mobileNumber"),
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+  }).with("email", "password"),
 };
