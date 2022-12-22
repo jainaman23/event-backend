@@ -177,5 +177,4 @@ const SendMailToUser = async (userInfo) => {
     ],
     html: TEMPLATE.eventPassMail,
   });
-  console.log("PAYMENT-EMAIl-DETAILS", emailSentDetails);
 };

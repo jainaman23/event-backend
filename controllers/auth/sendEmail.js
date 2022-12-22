@@ -67,5 +67,4 @@ const SendMailToUser = async (userInfo) => {
     ],
     html: TEMPLATE.eventPassMail,
   });
-  console.log("emailSentDetails", emailSentDetails);
 };
