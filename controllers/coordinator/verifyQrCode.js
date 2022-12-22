@@ -1,5 +1,6 @@
 const { isValidObjectId } = require("@services");
 const { Registration } = require("@models");
+const { PAYMENT_ORDER_STATUS } = require("@constant");
 
 module.exports = async (req, res, next) => {
   try {
@@ -28,6 +29,7 @@ module.exports = async (req, res, next) => {
 async function getRegisteredUsers(registrationId) {
   const user = await Registration.findOne({
     _id: isValidObjectId(registrationId, "registrationId"),
+    paymentStatus: PAYMENT_ORDER_STATUS.PAID,
   });
   if (!user) {
     throw { status: 400, message: "Invalid registration id" };

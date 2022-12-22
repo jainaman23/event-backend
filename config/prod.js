@@ -4,7 +4,7 @@ const config = {
     url: "mongodb+srv://mhsosa:5iqdo9l7spv6Dqxg@cluster0.ieqsqtm.mongodb.net/events?retryWrites=true&w=majority",
   },
   JWT: {
-    secret: "mhsosa@jaipur",
+    secret: "1234576890",
     expiry: "86400s",
     algorithms: ["HS256"],
   },

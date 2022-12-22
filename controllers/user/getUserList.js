@@ -1,4 +1,5 @@
 const { Registration } = require("@models");
+const { PAYMENT_ORDER_STATUS } = require("@constant");
 
 module.exports = async (req, res, next) => {
   try {
@@ -17,5 +18,7 @@ module.exports = async (req, res, next) => {
 };
 
 async function getRegisteredUsers() {
-  return await Registration.find().sort({ createdAt: -1 });
+  return await Registration.find({
+    paymentStatus: PAYMENT_ORDER_STATUS.PAID,
+  }).sort({ createdAt: -1 });
 }
