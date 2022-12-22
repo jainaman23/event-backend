@@ -1,25 +1,25 @@
 const config = {
   BASE_URL: "http://localhost:3000",
   DATABASE: {
-    url: "mongodb+srv://events:dpJdUIZhKHa3LjCC@cluster0.fhdbl0u.mongodb.net/?retryWrites=true&w=majority",
+    url: "mongodb+srv://mhsosa:5iqdo9l7spv6Dqxg@cluster0.ieqsqtm.mongodb.net/events?retryWrites=true&w=majority",
   },
   JWT: {
-    secret: "1234576890",
+    secret: "mhsosa@jaipur",
     expiry: "86400s",
     algorithms: ["HS256"],
   },
   DEFAULT_RANDOM_ID_GENERATOR_LENGTH: 12,
   PAYMENT_GATEWAY: {
-    KEY_ID: "rzp_test_AkwPqPwauYzwS8",
-    KEY_SECRET: "nGgN0BN2wiwbGH4SFOpcQ9pz",
+    KEY_ID: "rzp_live_H9heM7jcswk7M2",
+    KEY_SECRET: "vym5ZQaew5KFUdJ4Iu0io6Ve",
   },
   EMAIL_SERVER: {
     name: "linode",
     host: "mail.lataservices.com",
     secure: true,
     port: 465,
-    username: "info@lataservices.com",
-    password: "admin@$123#",
+    username: "do-not-reply@mhsosa.in",
+    password: "0IIy!yK2@u{#",
   },
 };
 

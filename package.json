@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "mode=dev nodemon ./bin/www"
+    "start": "mode=dev nodemon ./bin/www",
+    "prod": "mode=prod node ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -14,12 +15,14 @@
     "express": "^4.18.2",
     "express-jwt": "^7.7.7",
     "helmet": "^6.0.0",
+    "html-to-image": "^1.11.3",
     "http-errors": "~1.6.3",
     "joi": "^17.6.0",
     "module-alias": "^2.2.2",
     "moment": "^2.29.4",
     "mongoose": "^6.5.3",
     "nanoid": "^3.3.4",
+    "node-html-to-image": "^3.2.4",
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.19",
     "pug": "^3.0.2",

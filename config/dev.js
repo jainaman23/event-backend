@@ -18,8 +18,8 @@ const config = {
     host: "mail.lataservices.com",
     secure: true,
     port: 465,
-    username: "info@lataservices.com",
-    password: "admin@$123#",
+    username: "do-not-reply@mhsosa.in",
+    password: "0IIy!yK2@u{#",
   },
 };
 

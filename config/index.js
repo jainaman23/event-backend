@@ -3,4 +3,6 @@ const config =
     ? require("./dev")
     : require("./prod");
 
+console.log("ENV", process.env.mode);
+
 module.exports = config;

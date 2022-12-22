@@ -39,7 +39,6 @@ async function isCoordinatorExist(email) {
 }
 
 async function verifyPassword(password, hash) {
-  console.log(password, hash);
   // const isPasswordValid = hashCompare(password, hash);
   // if (!isPasswordValid) {
   //   throw { status: 400, message: "Invalid credentials" };

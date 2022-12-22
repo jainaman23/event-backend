@@ -1,9 +1,11 @@
 const crypto = require("crypto");
 const QRCode = require("qrcode");
+const fs = require("fs");
+const nodeHtmlToImage = require("node-html-to-image");
 const { Member, Registration, Order, Plan } = require("@models");
 const { isValidObjectId } = require("@services");
 const { paymentgateway, mailer } = require("@utils");
-const { PAYMENT_ORDER_STATUS } = require("@constant");
+const { PAYMENT_ORDER_STATUS, TEMPLATE } = require("@constant");
 
 module.exports = async (req, res, next) => {
   try {
@@ -83,7 +85,7 @@ module.exports = async (req, res, next) => {
   }
 };
 
-const getOrderInfo = async (orderId, companyId) => {
+const getOrderInfo = async (orderId) => {
   const orderInfo = await Order.findOne({
     orderId: orderId,
     status: PAYMENT_ORDER_STATUS.CREATED,
@@ -144,25 +146,36 @@ const addMember = async ({ name, email, countryCode, mobileNumber, batch }) => {
 
 const SendMailToUser = async (userInfo) => {
   const { sendMail } = mailer.initialize({ channel: "mailServer" });
-  const QRCodeImage = await QRCode.toDataURL(userInfo._id);
+  const QRCodeImage = await QRCode.toDataURL(`${userInfo._id}`);
+  const fileName = parseInt(Date.now()) + ".png";
+  await nodeHtmlToImage({
+    quality: 80,
+    html: TEMPLATE.eventPass
+      .replace("[IMAGE_PATH]", `'${QRCodeImage}'`)
+      .replace("[USER_NAME]", userInfo.name),
+    output: fileName,
+    puppeteerArgs: {
+      headless: true,
+      args: ["--no-sandbox"],
+    },
+  });
+  const data = fs.readFileSync(fileName, "base64");
+  fs.unlinkSync(fileName);
+  const htmlDataUrl = "data:image/png;base64," + data;
   const emailSentDetails = await sendMail({
-    from: "info@lataservices.com",
+    from: {
+      name: "MHSOSA",
+      address: "do-not-reply@mhsosa.in",
+    },
     to: userInfo.email,
-    subject: "Entry Pass | Alumini Meet",
+    subject: "MHSOSA | 2nd Alumni Meet Entry Pass",
     attachments: [
       {
         filename: "QRCode.png",
-        path: QRCodeImage,
-      },
-      {
-        filename: "QRCode.png",
-        path: QRCodeImage,
-        cid: "QRCode",
+        path: htmlDataUrl,
       },
     ],
-    html: `<b>Thank you for registering with us. We look forward to seeing you in the event</b></br>
-        Note: Please do not share this QR Code with anyone, This is valid only for single entry.</br>
-        Thank you</br>
-       <img src = 'cid:QRCode'></img>`,
+    html: TEMPLATE.eventPassMail,
   });
+  console.log("PAYMENT-EMAIl-DETAILS", emailSentDetails);
 };

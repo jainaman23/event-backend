@@ -17,5 +17,5 @@ module.exports = async (req, res, next) => {
 };
 
 async function getRegisteredUsers() {
-  return await Registration.find();
+  return await Registration.find().sort({ createdAt: -1 });
 }
