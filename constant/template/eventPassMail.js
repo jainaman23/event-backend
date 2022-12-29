@@ -234,7 +234,7 @@ const template = `
                               align="left">
 
                               <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Time: </strong>4:30 PM Onwards
+                                <p style="font-size: 14px; line-height: 140%;"><strong>Time: </strong>5:00 PM Onwards
                                 </p>
                               </div>
 

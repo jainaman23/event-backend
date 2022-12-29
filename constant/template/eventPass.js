@@ -194,7 +194,7 @@ table, td { color: #000000; } </style>
       <td style="overflow-wrap:break-word;word-break:break-word;padding:5px;font-family:'Montserrat',sans-serif;" align="left">
         
   <div style="line-height: 100%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 100%; text-align: center;">4:30 PM Onwards</p>
+    <p style="font-size: 14px; line-height: 100%; text-align: center;">5:00 PM Onwards</p>
   </div>
 
       </td>

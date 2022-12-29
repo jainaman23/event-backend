@@ -19,6 +19,8 @@ module.exports = async (req, res, next) => {
 
 async function getRegisteredUsers() {
   return await Registration.find({
-    paymentStatus: PAYMENT_ORDER_STATUS.PAID,
+    paymentStatus: {
+      $in: [PAYMENT_ORDER_STATUS.PAID],
+    },
   }).sort({ createdAt: -1 });
 }

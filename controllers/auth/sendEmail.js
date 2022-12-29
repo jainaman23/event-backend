@@ -11,7 +11,6 @@ module.exports = async (req, res, next) => {
   try {
     const userInfo = await getRegisteredUserInfo(registrationId);
 
-    console.log("userInfo", userInfo);
     await SendMailToUser(userInfo);
 
     return res.status(200).send({

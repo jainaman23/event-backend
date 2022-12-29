@@ -10,6 +10,7 @@ const { PAYMENT_ORDER_STATUS, TEMPLATE } = require("@constant");
 module.exports = async (req, res, next) => {
   try {
     const { event } = req.body;
+    const entity = req.body?.payload?.payment?.entity;
     const orderId = req.body?.payload?.payment?.entity?.order_id;
     const signature = req.headers["x-razorpay-signature"];
     const { KEY_SECRET } = paymentgateway.getPaymentGatewayConfig();
@@ -33,7 +34,7 @@ module.exports = async (req, res, next) => {
       };
     }
 
-    const orderInfo = await getOrderInfo(orderId);
+    const orderInfo = await getOrderInfo(orderId, event, entity);
     const userInfo = await getUserInfo(orderInfo.registrationId);
 
     if (event === "payment.failed") {
@@ -62,13 +63,19 @@ module.exports = async (req, res, next) => {
       if (isMember) {
         const { name, email, countryCode, mobileNumber, batch, isMember } =
           userInfo;
-        await addMember({
-          name,
-          email,
+        const memberExist = await isAlreadyMember({
           countryCode,
           mobileNumber,
-          batch,
         });
+        if (!memberExist) {
+          await addMember({
+            name,
+            email,
+            countryCode,
+            mobileNumber,
+            batch,
+          });
+        }
       }
       await SendMailToUser(userInfo);
     }
@@ -85,14 +92,21 @@ module.exports = async (req, res, next) => {
   }
 };
 
-const getOrderInfo = async (orderId) => {
+const getOrderInfo = async (orderId, event, entity) => {
   const orderInfo = await Order.findOne({
     orderId: orderId,
-    status: PAYMENT_ORDER_STATUS.CREATED,
   });
+  console.log("ORDER-INFO", orderInfo);
+
   if (!orderInfo) {
+    console.log("INVALID:orderId", orderId, event, entity);
     throw { status: 400, message: "Invalid order id" };
   }
+
+  if (orderInfo.status === PAYMENT_ORDER_STATUS.PAID) {
+    throw { status: 200, message: "Already processed" };
+  }
+
   return orderInfo;
 };
 
@@ -132,6 +146,13 @@ const updatePaymentInfoInRegistration = async (userInfo, status) => {
     }
   );
   return info;
+};
+
+const isAlreadyMember = async ({ countryCode, mobileNumber }) => {
+  return await Member.find({
+    countryCode,
+    mobileNumber,
+  });
 };
 
 const addMember = async ({ name, email, countryCode, mobileNumber, batch }) => {

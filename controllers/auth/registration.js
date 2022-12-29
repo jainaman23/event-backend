@@ -170,7 +170,7 @@ const isAlreadyRegistered = async ({ countryCode, mobileNumber }) => {
     mobileNumber,
   });
   if (registered && registered.paymentStatus === PAYMENT_ORDER_STATUS.PAID) {
-    throw { status: 400, message: "member already registered" };
+    throw { status: 400, message: "Member already registered" };
   }
   return registered;
 };
