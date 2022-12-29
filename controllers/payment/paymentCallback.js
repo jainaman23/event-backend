@@ -135,7 +135,10 @@ const updateOrderStatus = async ({ orderId, status }) => {
 
 const updatePaymentInfoInRegistration = async (userInfo, status) => {
   const info = await Registration.findOneAndUpdate(
-    { _id: isValidObjectId(userInfo._id, "userId") },
+    {
+      _id: isValidObjectId(userInfo._id, "userId"),
+      paymentStatus: { $ne: PAYMENT_ORDER_STATUS.PAID },
+    },
     {
       $set: {
         paymentStatus: status,
