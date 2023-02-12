@@ -22,5 +22,5 @@ async function getRegisteredUsers() {
     paymentStatus: {
       $in: [PAYMENT_ORDER_STATUS.PAID],
     },
-  }).sort({ createdAt: -1 });
+  }).sort({ updatedAt: -1 });
 }

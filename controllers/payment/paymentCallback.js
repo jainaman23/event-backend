@@ -28,6 +28,9 @@ module.exports = async (req, res, next) => {
       .digest("hex");
 
     if (expectedSignature !== signature) {
+      console.log("INVALID-SIGNATURE", req.body?.payload?.payment?.entity);
+      console.log("signature", signature);
+      console.log("expectedSignature", expectedSignature);
       throw {
         status: 400,
         message: "Invalid signature",
@@ -152,7 +155,7 @@ const updatePaymentInfoInRegistration = async (userInfo, status) => {
 };
 
 const isAlreadyMember = async ({ countryCode, mobileNumber }) => {
-  return await Member.find({
+  return await Member.findOne({
     countryCode,
     mobileNumber,
   });

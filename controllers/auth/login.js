@@ -11,6 +11,7 @@ module.exports = async (req, res, next) => {
 
     const token = generateToken({
       coordinatorId: isValidObjectId(coordinator._id),
+      email: coordinator.email,
     });
 
     res.status(200).send(
