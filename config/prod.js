@@ -1,7 +1,7 @@
 const config = {
   BASE_URL: "http://localhost:3000",
   DATABASE: {
-    url: "mongodb+srv://mhsosa:5iqdo9l7spv6Dqxg@cluster0.ieqsqtm.mongodb.net/events?retryWrites=true&w=majority",
+    url: "mongodb+srv://mhsosa:5iqdo9l7spv6Dqxg@cluster0.ieqsqtm.mongodb.net/mhsosa_2024?retryWrites=true&w=majority",
   },
   JWT: {
     secret: "1234576890",
