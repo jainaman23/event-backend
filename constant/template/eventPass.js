@@ -11,26 +11,26 @@ const template = `
 </head>
 
 <body style="font-family: Lato, sans-serif; color: #fff;">
-<table id="main" width="750"  border="0" align="center" cellpadding="0" cellspacing="0" style="background-image: url(https://pyoji.com/mhsosa/mhsosa-3rd-alumni-meet-bg.jpg);"> 
+<table id="main" width="750"  border="0" align="center" cellpadding="0" cellspacing="0" style="background-image: url(https://pyoji.com/mhsosa/mhsosa-3rd-alumni-meet-bg.jpg);">
   <tbody>
     <tr>
       <td>
 
-        <table id="01" width="750"  border="0" align="center" cellpadding="0" cellspacing="0">
+        <table id="01" width="650"  border="0" align="center" cellpadding="0" cellspacing="0">
           <tbody>
-            
+
             <tr>
               <td align="center" style="padding-top: 690px;">
-                <img src=[IMAGE_PATH] alt="QR">
+                <img src=[IMAGE_PATH] alt="QR" width="200" height="200">
               </td>
             </tr>
 
             <tr>
-              <td align="center" style="font-size: 40px; font-weight: 700; padding-bottom: 200px;">
+              <td align="center" style="font-size: 30px; font-weight: 700; padding-bottom: 350px;">
                 [USER_NAME]
               </td>
             </tr>
-            
+
 
           </tbody>
         </table>
