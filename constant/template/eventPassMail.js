@@ -162,8 +162,8 @@ const template = `
                               align="left">
 
                               <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;">We look forward to seeing you in the 2nd
-                                  alumni meet on 8 Jan 2023.</p>
+                                <p style="font-size: 14px; line-height: 140%;">We look forward to seeing you in the 3rd
+                                  alumni meet on 28 Apr 2024.</p>
                               </div>
 
                             </td>
@@ -216,7 +216,7 @@ const template = `
                               align="left">
 
                               <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Date: </strong>8 Jan 2023, Sunday
+                                <p style="font-size: 14px; line-height: 140%;"><strong>Date: </strong>24 Apr 2024, Sunday
                                 </p>
                               </div>
 
@@ -234,7 +234,7 @@ const template = `
                               align="left">
 
                               <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Time: </strong>5:00 PM Onwards
+                                <p style="font-size: 14px; line-height: 140%;"><strong>Time: </strong>5:30 PM Onwards
                                 </p>
                               </div>
 
@@ -252,8 +252,7 @@ const template = `
                               align="left">
 
                               <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Venue:</strong> MHS School, Tilak
-                                  Nagar, Jaipur.</p>
+                                <p style="font-size: 14px; line-height: 140%;"><strong>Venue:</strong> Jai Club, C Scheme, Jaipur.</p>
                               </div>
 
                             </td>
