@@ -1,4 +1,4 @@
 const eventPassMail = require("./eventPassMail");
-const eventPass = require("./eventPass");
+const eventPass = require("./eventTicket");
 
 module.exports = { eventPassMail, eventPass };

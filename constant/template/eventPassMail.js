@@ -216,7 +216,7 @@ const template = `
                               align="left">
 
                               <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Date: </strong>24 Apr 2024, Sunday
+                                <p style="font-size: 14px; line-height: 140%;"><strong>Date: </strong>28 Apr 2024, Sunday
                                 </p>
                               </div>
 
@@ -234,7 +234,7 @@ const template = `
                               align="left">
 
                               <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                <p style="font-size: 14px; line-height: 140%;"><strong>Time: </strong>5:30 PM Onwards
+                                <p style="font-size: 14px; line-height: 140%;"><strong>Time: </strong>6:00 PM Onwards
                                 </p>
                               </div>
 
