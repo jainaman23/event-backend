@@ -195,7 +195,7 @@ const SendMailToUser = async (userInfo) => {
       address: "do-not-reply@mhsosa.in",
     },
     to: userInfo.email,
-    subject: "MHSOSA | 2nd Alumni Meet Entry Pass",
+    subject: "MHSOSA | 3rd Alumni Meet Entry Pass",
     attachments: [
       {
         filename: "QRCode.png",
