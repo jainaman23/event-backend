@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+4;
 const { Schema } = mongoose;
+const { REGISTRATION_TYPE } = require("@constant");
 
 const Registration = new Schema(
   {
@@ -14,6 +16,11 @@ const Registration = new Schema(
       type: String,
       enum: ["PAID", "FAILED", "NOT_PAID"],
       default: "NOT_PAID",
+    },
+    registrationType: {
+      type: String,
+      enum: [...Object.values(REGISTRATION_TYPE)],
+      required: true,
     },
   },
   {

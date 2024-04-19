@@ -1,5 +1,5 @@
 const { Member, Registration, Plan } = require("@models");
-const { PAYMENT_ORDER_STATUS } = require("@constant");
+const { PAYMENT_ORDER_STATUS, REGISTRATION_TYPE } = require("@constant");
 
 module.exports = async (req, res, next) => {
   const { countryCode, mobileNumber } = req.body;
@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
       return res.status(200).send({
         message: "Member already registered",
         data: {
-          isRegistered: true,
+          isRegistered: registeredUser.registrationType === REGISTRATION_TYPE.NEW_MEMBER ? false : true,
           member: registeredUser,
         },
       });

@@ -2,10 +2,14 @@ const crypto = require("crypto");
 const QRCode = require("qrcode");
 const fs = require("fs");
 const nodeHtmlToImage = require("node-html-to-image");
-const { Member, Registration, Order, Plan } = require("@models");
+const { Member, Registration, Order } = require("@models");
 const { isValidObjectId } = require("@services");
 const { paymentgateway, mailer } = require("@utils");
-const { PAYMENT_ORDER_STATUS, TEMPLATE } = require("@constant");
+const {
+  PAYMENT_ORDER_STATUS,
+  TEMPLATE,
+  REGISTRATION_TYPE,
+} = require("@constant");
 
 module.exports = async (req, res, next) => {
   try {
@@ -28,9 +32,6 @@ module.exports = async (req, res, next) => {
       .digest("hex");
 
     if (expectedSignature !== signature) {
-      console.log("INVALID-SIGNATURE", req.body?.payload?.payment?.entity);
-      console.log("signature", signature);
-      console.log("expectedSignature", expectedSignature);
       throw {
         status: 400,
         message: "Invalid signature",
@@ -64,8 +65,16 @@ module.exports = async (req, res, next) => {
 
       const { isMember } = userInfo;
       if (isMember) {
-        const { name, email, countryCode, mobileNumber, batch, isMember } =
-          userInfo;
+        const {
+          _id,
+          name,
+          email,
+          countryCode,
+          mobileNumber,
+          batch,
+          isMember,
+          registrationType,
+        } = userInfo;
         const memberExist = await isAlreadyMember({
           countryCode,
           mobileNumber,
@@ -77,10 +86,18 @@ module.exports = async (req, res, next) => {
             countryCode,
             mobileNumber,
             batch,
+            isMember,
           });
+          if (registrationType === REGISTRATION_TYPE.NEW_MEMBER) {
+            await deleteUserRegistration({ id: _id });
+          }
         }
       }
-      await SendMailToUser(userInfo);
+      if (userInfo.registrationType !== REGISTRATION_TYPE.NEW_MEMBER) {
+        await SendMailToMembership(userInfo);
+      } else {
+        await SendMailToNewMember(userInfo);
+      }
     }
 
     res.status(200).send({
@@ -99,7 +116,6 @@ const getOrderInfo = async (orderId, event, entity) => {
   const orderInfo = await Order.findOne({
     orderId: orderId,
   });
-  console.log("ORDER-INFO", orderInfo);
 
   if (!orderInfo) {
     console.log("INVALID:orderId", orderId, event, entity);
@@ -161,17 +177,31 @@ const isAlreadyMember = async ({ countryCode, mobileNumber }) => {
   });
 };
 
-const addMember = async ({ name, email, countryCode, mobileNumber, batch }) => {
-  const newMember = await Member.create({
+const addMember = async ({
+  name,
+  email,
+  countryCode,
+  mobileNumber,
+  batch,
+  isMember,
+}) => {
+  await Member.create({
     name,
     email,
     countryCode,
     mobileNumber,
     batch,
+    isNewMember: isMember,
   });
 };
 
-const SendMailToUser = async (userInfo) => {
+const deleteUserRegistration = async ({ id }) => {
+  await Registration.deleteOne({
+    _id: id,
+  });
+};
+
+const SendMailToMembership = async (userInfo) => {
   const { sendMail } = mailer.initialize({ channel: "mailServer" });
   const QRCodeImage = await QRCode.toDataURL(`${userInfo._id}`);
   const fileName = parseInt(Date.now()) + ".png";
@@ -189,13 +219,13 @@ const SendMailToUser = async (userInfo) => {
   const data = fs.readFileSync(fileName, "base64");
   fs.unlinkSync(fileName);
   const htmlDataUrl = "data:image/png;base64," + data;
-  const emailSentDetails = await sendMail({
+  await sendMail({
     from: {
       name: "MHSOSA",
       address: "do-not-reply@mhsosa.in",
     },
     to: userInfo.email,
-    subject: "MHSOSA | 3rd Alumni Meet Entry Pass",
+    subject: "MHSOSA | Your Registration is Confirmed",
     attachments: [
       {
         filename: "QRCode.png",
@@ -203,5 +233,18 @@ const SendMailToUser = async (userInfo) => {
       },
     ],
     html: TEMPLATE.eventPassMail,
+  });
+};
+
+const SendMailToNewMember = async (userInfo) => {
+  const { sendMail } = mailer.initialize({ channel: "mailServer" });
+  await sendMail({
+    from: {
+      name: "MHSOSA",
+      address: "do-not-reply@mhsosa.in",
+    },
+    to: userInfo.email,
+    subject: "MHSOSA | Your Registration is Confirmed",
+    html: TEMPLATE.newMemberMail,
   });
 };

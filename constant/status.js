@@ -6,6 +6,14 @@ const PAYMENT_ORDER_STATUS = Object.freeze({
   NOT_PAID: "NOT_PAID",
 });
 
+const REGISTRATION_TYPE = Object.freeze({
+  EVENT: "EVENT",
+  MEMBER: "MEMBER",
+  MEMBERSHIP: "MEMBERSHIP",
+  NEW_MEMBER: "NEW_MEMBER",
+});
+
 module.exports = {
   PAYMENT_ORDER_STATUS,
+  REGISTRATION_TYPE,
 };

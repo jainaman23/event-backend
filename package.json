@@ -5,7 +5,8 @@
   "scripts": {
     "start": "mode=dev nodemon ./bin/www",
     "prod": "mode=prod node ./bin/www",
-    "prod-win": "set port=3001&&set mode=prod&&node ./bin/www "
+    "prod-win": "set port=3001 && set mode=prod && node ./bin/www",
+    "dev-win": "set port=3001&&set mode=dev&&nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

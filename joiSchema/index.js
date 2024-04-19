@@ -12,7 +12,6 @@ module.exports = (replace) => {
     "POST:/api/v1/auth/verify": verifySchema,
     "POST:/api/v1/auth/register": registerSchema,
     "POST:/api/v1/auth/send-email": sendEmailSchema,
-
     "POST:/api/v1/subscription/purchase": createSubscriptionOrderSchema,
   };
 };

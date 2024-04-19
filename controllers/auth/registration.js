@@ -1,11 +1,10 @@
 const { Member, Registration, Order, Plan } = require("@models");
-const path = require("path");
-const { PAYMENT_ORDER_STATUS } = require("@constant");
-const { paymentgateway, mailer } = require("@utils");
+const { PAYMENT_ORDER_STATUS, REGISTRATION_TYPE } = require("@constant");
+const { paymentgateway } = require("@utils");
 const { generateRandomId, isValidObjectId } = require("@services");
 
 module.exports = async (req, res, next) => {
-  const { name, email, countryCode, mobileNumber, batch, joinMembership } =
+  const { name, email, countryCode, mobileNumber, batch, registrationType } =
     req.body;
   let isMember = false;
 
@@ -15,19 +14,23 @@ module.exports = async (req, res, next) => {
       mobileNumber,
     });
 
-    const member = await isAlreadyMember({ countryCode, mobileNumber });
-
     let planInfo = await getPlanInfo({ type: "NON_MEMBER" });
     let amount = planInfo.amount * 100;
 
-    if (member) {
+    if (REGISTRATION_TYPE.MEMBER === registrationType) {
       isMember = true;
       planInfo = await getPlanInfo({ type: "MEMBER" });
       amount = planInfo.amount * 100;
     }
 
-    if (!isMember && joinMembership) {
+    if (REGISTRATION_TYPE.MEMBERSHIP === registrationType) {
       planInfo = await getPlanInfo({ type: "MEMBERSHIP" });
+      amount = planInfo.amount * 100;
+      isMember = true;
+    }
+
+    if (REGISTRATION_TYPE.NEW_MEMBER === registrationType) {
+      planInfo = await getPlanInfo({ type: "NEW_MEMBER" });
       amount = planInfo.amount * 100;
       isMember = true;
     }
@@ -55,6 +58,7 @@ module.exports = async (req, res, next) => {
         batch,
         paymentStatus: PAYMENT_ORDER_STATUS.NOT_PAID,
         isMember,
+        registrationType,
       });
     } else {
       newRegistration = await updateRegisterUserInfo({
@@ -65,6 +69,7 @@ module.exports = async (req, res, next) => {
         batch,
         paymentStatus: PAYMENT_ORDER_STATUS.NOT_PAID,
         isMember,
+        registrationType,
       });
     }
 
@@ -190,6 +195,7 @@ const registerUser = async ({
   batch,
   isMember,
   paymentStatus,
+  registrationType,
 }) => {
   const registered = await Registration.create({
     name,
@@ -199,6 +205,7 @@ const registerUser = async ({
     batch,
     isMember,
     paymentStatus,
+    registrationType,
   });
   return registered;
 };
@@ -212,6 +219,7 @@ const updateRegisterUserInfo = async ({
   batch,
   isMember,
   paymentStatus,
+  registrationType,
 }) => {
   const registeredUser = await Registration.findOneAndUpdate(
     {
@@ -225,6 +233,7 @@ const updateRegisterUserInfo = async ({
       batch,
       isMember,
       paymentStatus,
+      registrationType,
     }
   );
   return registeredUser;

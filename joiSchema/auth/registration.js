@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { REGISTRATION_TYPE } = require("@constant");
 
 module.exports = {
   validationType: "body",
@@ -9,5 +10,8 @@ module.exports = {
     mobileNumber: Joi.string().required(),
     joinMembership: Joi.boolean().required(),
     batch: Joi.number().required(),
+    registrationType: Joi.string()
+      .valid(...Object.values(REGISTRATION_TYPE))
+      .required(),
   }),
 };
