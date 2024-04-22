@@ -10,10 +10,10 @@ const config = {
   },
   DEFAULT_RANDOM_ID_GENERATOR_LENGTH: 12,
   PAYMENT_GATEWAY: {
-    // KEY_ID: "rzp_live_H9heM7jcswk7M2",
-    // KEY_SECRET: "vym5ZQaew5KFUdJ4Iu0io6Ve",
-    KEY_ID: "rzp_test_AkwPqPwauYzwS8",
-    KEY_SECRET: "nGgN0BN2wiwbGH4SFOpcQ9pz",
+    KEY_ID: "rzp_live_H9heM7jcswk7M2",
+    KEY_SECRET: "vym5ZQaew5KFUdJ4Iu0io6Ve",
+    // KEY_ID: "rzp_test_AkwPqPwauYzwS8",
+    // KEY_SECRET: "nGgN0BN2wiwbGH4SFOpcQ9pz",
   },
   EMAIL_SERVER: {
     name: "linode",
