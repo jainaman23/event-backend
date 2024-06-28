@@ -4,11 +4,9 @@ const { Schema } = mongoose;
 const Member = new Schema(
   {
     name: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String },
     countryCode: String,
     mobileNumber: String,
-    batch: { type: Number, required: true },
-    isNewMember: { type: Boolean, default: true },
   },
   {
     timestamps: true,

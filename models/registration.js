@@ -4,11 +4,10 @@ const { Schema } = mongoose;
 const Registration = new Schema(
   {
     name: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String },
     countryCode: { type: String, required: true },
     mobileNumber: { type: String, required: true },
     isMember: { type: Boolean, required: true },
-    batch: { type: Number, required: true },
     isAttended: { type: Boolean, default: false },
     paymentStatus: {
       type: String,

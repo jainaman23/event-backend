@@ -25,7 +25,7 @@ mongoose
     console.log("DB connection estabilished");
   })
   .catch((error) => {
-    logger.error("error", error);
+    console.error("error", error);
   });
 
 /**
