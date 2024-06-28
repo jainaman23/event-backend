@@ -1,5 +1,5 @@
 const config = {
-  BASE_URL: "http://localhost:3000",
+  BASE_URL: "http://localhost:3001",
   DATABASE: {
     url: "mongodb+srv://mhsosa:5iqdo9l7spv6Dqxg@cluster0.ieqsqtm.mongodb.net/srajan_2024?retryWrites=true&w=majority",
   },

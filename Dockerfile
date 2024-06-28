@@ -6,5 +6,5 @@ COPY --chown=node:node package*.json ./
 USER node
 RUN npm i  --no-cache
 COPY --chown=node:node . .
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "prod" ]
 EXPOSE ${PORT}
