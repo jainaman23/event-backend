@@ -1,22 +1,10 @@
 FROM node:16.17.1-alpine
-
-RUN apk add python3
-
-RUN apk add --no-cache --virtual .gyp \
-    make \
-    curl \
-    g++ \
-    bash \
-    git
-
-WORKDIR /hiring-backend
-
-COPY . /hiring-backend/
-
-RUN npm ci
-
-ENV PORT="3000"
-
-CMD [ "npm", "start" ]
-
+ENV PORT="3001"
+RUN mkdir -p /home/app/node_modules && chown -R node:node /home/app
+WORKDIR /home/app
+COPY --chown=node:node package*.json ./
+USER node
+RUN npm i  --no-cache
+COPY --chown=node:node . .
+CMD [ "npm", "run", "start" ]
 EXPOSE ${PORT}
