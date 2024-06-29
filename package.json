@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "port=3001 mode=dev nodemon ./bin/www",
-    "prod": "port=3001 mode=prod node ./bin/www",
+    "start": "PORT=3001 mode=dev nodemon ./bin/www",
+    "prod": "PORT=3001 mode=prod node ./bin/www",
     "dev-win": "set port=3001&&set mode=dev&&nodemon ./bin/www"
   },
   "dependencies": {
